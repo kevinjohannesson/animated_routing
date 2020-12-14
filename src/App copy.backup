@@ -6,8 +6,8 @@ import BarLayout from "./layouts/Bar";
 import FooLayout from "./layouts/Foo";
 
 // import { createMemoryHistory } from 'history';
-// import { ConnectedRouter } from "connected-react-router";
-// import { history } from "./store";
+import { ConnectedRouter } from "connected-react-router";
+import { history } from "./store";
 
 const fooLayoutEndpoints = [
   {
@@ -53,6 +53,11 @@ export default function App() {
                     exact
                     path={fooLayoutEndpoints.map((endpoint) => endpoint.url)}
                     render={() => {
+                      // console.log("foo route render");
+                      // console.log('target: ', targetLocation.pathname)
+                      // console.log('location: ', location.pathname)
+                      // console.log(routeRef.current)
+                      // currentRouteRef.current = location.pathname;
                       const currentRoute = currentRouteRef.current;
                       const targetRoute = targetRouteRef.current;
                       const shouldAnimateIn = !fooLayoutEndpoints.some((endpoint) => endpoint.url === currentRoute);
@@ -73,15 +78,53 @@ export default function App() {
                   <Route
                     exact
                     path={barLayoutEndpoints.map((endpoint) => endpoint.url)}
-                    render={() => {
+                    render={(props) => {
                       const currentRoute = currentRouteRef.current;
                       const targetRoute = targetRouteRef.current;
                       const shouldAnimateIn = !barLayoutEndpoints.some((endpoint) => endpoint.url === currentRoute);
                       const shouldAnimateOut = !barLayoutEndpoints.some((endpoint) => endpoint.url === targetRoute);
                       currentRouteRef.current = location.pathname;
+                      // console.log('bar route render')
+                      // console.log('target: ', targetLocation.pathname)
+                      // console.log('location: ', location.pathname)
+                      // console.log('ref: ', routeRef.current)
+                      // const previousRoute = routeRef.current
+                      // const targetRoute = location.pathname
+                      // const shouldAnimateIn = previousRoute === '/foo';
+                      // const shouldAnimateOut = targetRoute === '/foo';
+                      // console.log({ props });
+                      // const currentRoute = location.pathname;
+
+                      // const shouldAnimateIn = currentRoute === "/foo";
+                      // const shouldAnimateIn = barLayoutEndpoints.some( endpoint => endpoint.url !== currentRoute )
+
+                      // const shouldAnimateOut = targetRoute === "/foo";
+                      // const shouldAnimateOut = barLayoutEndpoints.some( endpoint => endpoint.url !== targetRoute )
+
+                      // console.log(currentRouteRef.current);
+                      // console.log(location.pathname);
+                      // console.log({ targetRoute });
+                      // console.log({ shouldAnimateOut });
+
+                      // console.log({ targetRoute });
+
+                      // console.log({new_shouldAnimateOut})
+                      // console.log({ shouldAnimateIn });
+                      // console.log({new_shouldAnimateIn})
+
+                      // console.log({previousRoute})
+                      // console.log({targetRoute})
+                      // console.log({shouldAnimateIn})
+                      // console.log({shouldAnimateOut})
+                      // const shouldAnimateOut = routeRef.current === 'foo';
+                      // routeRef.current = location.pathname;
+
+                      
                       return (
                         <Switch>
+                          {/* <BarLayout animateIn={shouldAnimateIn} animateOut={shouldAnimateOut}> */}
                           {/* <BarLayout animateIn={true} animateOut={true}> */}
+                          {/* <BarLayout animateIn={true} animateOut={shouldAnimateOut}> */}
                           <BarLayout animateIn={shouldAnimateIn} animateOut={shouldAnimateOut}>
                             {barLayoutEndpoints.map((endpoint) => (
                               <Route exact path={endpoint.url} component={endpoint.component} key={endpoint.url} />
